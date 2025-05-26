@@ -3,7 +3,7 @@
 	"id": "simpleitemglow",
 	"version": "${version}",
 	"name": "SimpleItemGlow",
-	"description": "Makes dropped items/blocks glow",
+	"description": "Makes dropped items/blocks glow, credit to Wynncraft Big Items (____Iron______) and GlowUp(Spyxar)",
 	"authors": [
 		"Me!"
 	],

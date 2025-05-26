@@ -10,6 +10,7 @@
 	},
 	"client": [
 		"EntityRenderMixin",
+		"ItemEntityRendererMixin",
 		"SimpleItemGlowMixin"
 	]
 }

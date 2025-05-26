@@ -17,10 +17,13 @@ public class SimpleItemGlowMixin {
 	@ModifyArgs(method = "renderEntities", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/OutlineVertexConsumerProvider;setColor(IIII)V"))
 	public void modifyGlowColor(Args args, @Local Entity entity) {
 		if(entity instanceof ItemEntity) {
-			int color = 0x00FF00;
-			args.set(0, ColorHelper.getRed(color));
-			args.set(1, ColorHelper.getGreen(color));
-			args.set(2, ColorHelper.getBlue(color));
-			}
+			int time = (int)(System.currentTimeMillis() / 10) % 360; // cycle hue
+			int rgb = java.awt.Color.HSBtoRGB(time / 360f, 1.0f, 1.0f);
+
+			args.set(0, (rgb >> 16) & 0xFF);
+			args.set(1, (rgb >> 8) & 0xFF);
+			args.set(2, rgb & 0xFF);
+
+		}
 	}
 }
