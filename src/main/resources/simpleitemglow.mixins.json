@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "com.radioactivegorilla.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"MinecraftClientMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"client": [
+		"EntityRenderMixin",
+		"SimpleItemGlowMixin"
+	]
+}

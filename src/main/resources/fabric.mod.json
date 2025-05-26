@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"id": "simpleitemglow",
+	"version": "${version}",
+	"name": "SimpleItemGlow",
+	"description": "Makes dropped items/blocks glow",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/simpleitemglow/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.radioactivegorilla.SimpleItemGlow"
+		]
+	},
+	"mixins": [
+		"simpleitemglow.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
