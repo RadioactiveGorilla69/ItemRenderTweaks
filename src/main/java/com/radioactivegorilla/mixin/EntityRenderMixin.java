@@ -13,6 +13,7 @@ public class EntityRenderMixin {
     @Inject(method = "shouldRender", at = @At("HEAD"), cancellable = true)
     public void increaseRenderDistance(Entity entity, Frustum frustum, double x, double y, double z, CallbackInfoReturnable<Boolean> cir) {
         if(entity instanceof ItemEntity) {
+            //TRYING to show item as far away as possible, if it doesn't work then let me know.
             cir.setReturnValue(true);
         }
     }

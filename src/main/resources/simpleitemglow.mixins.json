@@ -11,6 +11,6 @@
 	"client": [
 		"EntityRenderMixin",
 		"ItemEntityRendererMixin",
-		"SimpleItemGlowMixin"
+		"SimpleGlowScaleMixin"
 	]
 }

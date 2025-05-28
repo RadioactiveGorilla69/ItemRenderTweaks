@@ -1,5 +1,6 @@
 package com.radioactivegorilla.mixin;
 
+import com.radioactivegorilla.config.Config;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.ItemEntityRenderer;
 import net.minecraft.client.render.entity.state.ItemEntityRenderState;
@@ -27,8 +28,8 @@ public abstract class ItemEntityRendererMixin {
     private void scaleItems(ItemEntityRenderState itemEntityRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
         ItemEntity itemEntity = currentItemEntity.get();
         ItemStack itemStack = itemEntity.getStack();
-        if (itemStack.isOf(Items.TOTEM_OF_UNDYING) || itemStack.isOf(Items.MUSHROOM_STEM) || itemStack.isOf(Items.BROWN_STAINED_GLASS) || itemStack.isOf(Items.PURPLE_GLAZED_TERRACOTTA) || itemStack.isOf(Items.BEACON) || itemStack.isOf(Items.CLOCK)  || itemStack.isOf(Items.IRON_BLOCK)) {
-            matrixStack.scale(7.0F, 7.0F, 7.0F);
+        if(itemStack.isOf(Items.TOTEM_OF_UNDYING) || itemStack.isOf(Items.MUSHROOM_STEM) || itemStack.isOf(Items.BROWN_STAINED_GLASS) || itemStack.isOf(Items.PURPLE_GLAZED_TERRACOTTA) || itemStack.isOf(Items.BEACON) || itemStack.isOf(Items.CLOCK)  || itemStack.isOf(Items.IRON_BLOCK) || itemStack.isOf(Items.IRON_NUGGET) || itemStack.isOf(Items.DIAMOND_AXE) || itemStack.isOf(Items.IRON_HORSE_ARMOR) || itemStack.isOf(Items.END_ROD) || itemStack.isOf(Items.BREWING_STAND) || itemStack.isOf(Items.PINK_TULIP)) {
+            matrixStack.scale(Config.itemScale, Config.itemScale, Config.itemScale);
         }
     }
 }
