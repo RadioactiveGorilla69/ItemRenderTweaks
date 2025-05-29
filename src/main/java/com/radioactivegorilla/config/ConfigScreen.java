@@ -1,57 +1,50 @@
 package com.radioactivegorilla.config;
 
-import dev.isxander.yacl3.api.*;
-import dev.isxander.yacl3.api.controller.*;
+import me.shedaniel.clothconfig2.api.*;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ConfigScreen {
     public static Screen getConfigScreen(Screen parent) {
-        return YetAnotherConfigLib.createBuilder()
-                .title(Text.literal("Simple Item Glow Config"))
-                .category(ConfigCategory.createBuilder()
-                        .name(Text.literal("Settings"))
-                        .option(Option.<Boolean>createBuilder()
-                                .name(Text.literal("Enable Glow"))
-                                .description(OptionDescription.of(Text.literal("Toggle the glow effect")))
-                                .binding(true, () -> Config.glowEnabled, val -> Config.glowEnabled = val)
-                                .controller(BooleanControllerBuilder::create)
-                                .build())
-                        .option(Option.<Boolean>createBuilder()
-                                .name(Text.literal("RGB Glow"))
-                                .description(OptionDescription.of(Text.literal("Chroma RGB glow")))
-                                .binding(false, () -> Config.animatedGlow, val -> Config.animatedGlow = val)
-                                .controller(BooleanControllerBuilder::create)
-                                .build())
-                        .option(Option.<Float>createBuilder()
-                                .name(Text.literal("Glow Speed"))
-                                .description(OptionDescription.of(Text.literal("Adjust speed of Chroma RGB glow (0.1x to 5.0x)")))
-                                .binding(1.0f, () -> Config.animatedGlowSpeed, val -> Config.animatedGlowSpeed = val)
-                                .controller(opt -> FloatSliderControllerBuilder.create(opt)
-                                        .range(0.1f, 5.0f)
-                                        .step(0.1f)
-                                        .formatValue(val -> Text.literal(String.format("%.1fx", val))))
-                                .build())
-                        .option(Option.<Color>createBuilder()
-                                .name(Text.literal("Glow Color"))
-                                .description(OptionDescription.of(Text.literal("Choose a static glow color")))
-                                .binding(new Color(0xFFFFFF), () -> Config.colorRGB, val -> Config.colorRGB = val)
-                                .controller(ColorControllerBuilder::create)
-                                .build())
-                        .option(Option.<Float>createBuilder()
-                                .name(Text.literal("Item Scale"))
-                                .description(OptionDescription.of(Text.literal("Scale factor for items (0.5x to 10.0x)")))
-                                .binding(1.0f, () -> Config.itemScale, val -> Config.itemScale = val)
-                                .controller(opt -> FloatSliderControllerBuilder.create(opt)
-                                        .range(0.5f, 10.0f)
-                                        .step(0.1f)
-                                        .formatValue(val -> Text.literal(String.format("%.1fx", val))))
+        ConfigBuilder builder = ConfigBuilder.create()
+                .setParentScreen(parent)
+                .setTitle(Text.literal("Item Render Tweaks Config"))
+                .setSavingRunnable(Config::save);
 
-                                .build())
-                        .build())
-                .save(Config::save)
-                .build()
-                .generateScreen(parent);
+        ConfigCategory general = builder.getOrCreateCategory(Text.literal("Settings"));
+        ConfigEntryBuilder entryBuilder = builder.entryBuilder();
+
+        general.addEntry(entryBuilder.startBooleanToggle(Text.literal("Enable Glow"), Config.glowEnabled)
+                .setDefaultValue(true)
+                .setSaveConsumer(val -> Config.glowEnabled = val)
+                .build());
+        general.addEntry(entryBuilder.startBooleanToggle(Text.literal("RGB Glow"), Config.animatedGlow)
+                .setDefaultValue(false)
+                .setSaveConsumer(val -> Config.animatedGlow = val)
+                .build());
+        general.addEntry(entryBuilder.startFloatField(Text.literal("RGB Glow Speed (0.1 - 5.0)"), Config.animatedGlowSpeed)
+                .setDefaultValue(1.0f)
+                .setMin(0.1f)
+                .setMax(5.0f)
+                .setSaveConsumer(val -> Config.animatedGlowSpeed = val)
+                .build());
+        general.addEntry(entryBuilder.startColorField(Text.literal("Glow Color"), Config.colorRGB.getRGB() & 0xFFFFFF)
+                .setDefaultValue(0xFFFFFF)
+                .setSaveConsumer(val -> Config.colorRGB = new Color(val & 0xFFFFFF))
+                .build());
+        general.addEntry(entryBuilder.startFloatField(Text.literal("Item Scale (0.5 - 10.0)"), Config.itemScale)
+                .setDefaultValue(1.0f)
+                .setMin(0.5f)
+                .setMax(10.0f)
+                .setSaveConsumer(val -> Config.itemScale = val)
+                .build());
+        general.addEntry(entryBuilder.startStrList(Text.literal("Affected Items (example: item ID - \"minecraft:pink_tulip\" or display name - \"Pink Tulip\")"), Config.affectedItemsList)
+                .setDefaultValue(new ArrayList<>())
+                .setSaveConsumer(val -> Config.affectedItemsList = val)
+                .build());
+        return builder.build();
     }
 }

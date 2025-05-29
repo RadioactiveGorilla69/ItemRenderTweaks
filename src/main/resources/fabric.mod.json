@@ -1,37 +1,35 @@
 {
 	"schemaVersion": 1,
-	"id": "simpleitemglow",
+	"id": "itemrendertweaks",
 	"version": "${version}",
-	"name": "SimpleItemGlow",
-	"description": "Makes dropped items/blocks glow, credit to Wynncraft Big Items (____Iron______) and GlowUp(Spyxar)",
+	"name": "ItemRenderTweaks",
+	"description": "Makes dropped items/blocks of your choosing glow, and you can change the size, too!",
 	"authors": [
-		"Me!"
+		"RadioactiveGorilla69"
 	],
 	"contact": {
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/RadioactiveGorilla69/ItemRenderTweaks",
+		"issues": "https://github.com/RadioactiveGorilla69/ItemRenderTweaks/issues"
 	},
 	"license": "MIT",
-	"icon": "assets/simpleitemglow/icon.png",
+	"icon": "assets/itemrendertweaks/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.radioactivegorilla.SimpleItemGlow"
+			"com.radioactivegorilla.ItemRenderTweaks"
 		],
 		"modmenu": [
 			"com.radioactivegorilla.config.ModMenuIntegration"
 		]
 	},
 	"mixins": [
-		"simpleitemglow.mixins.json"
+		"itemrendertweaks.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.16.14",
 		"minecraft": "~1.21.4",
 		"java": ">=21",
 		"fabric-api": "*",
-		"yet_another_config_lib_v3": "3.6.6+1.21.4-fabric"
+		"cloth-config": "17.0.144"
 	},
-	"suggests": {
-		"another-mod": "*"
-	}
 }

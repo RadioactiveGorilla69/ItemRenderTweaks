@@ -6,8 +6,7 @@ import net.minecraft.client.render.entity.ItemEntityRenderer;
 import net.minecraft.client.render.entity.state.ItemEntityRenderState;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,8 +26,12 @@ public abstract class ItemEntityRendererMixin {
     @Inject(method = "render", at = @At("HEAD"))
     private void scaleItems(ItemEntityRenderState itemEntityRenderState, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
         ItemEntity itemEntity = currentItemEntity.get();
-        ItemStack itemStack = itemEntity.getStack();
-        if(itemStack.isOf(Items.TOTEM_OF_UNDYING) || itemStack.isOf(Items.MUSHROOM_STEM) || itemStack.isOf(Items.BROWN_STAINED_GLASS) || itemStack.isOf(Items.PURPLE_GLAZED_TERRACOTTA) || itemStack.isOf(Items.BEACON) || itemStack.isOf(Items.CLOCK)  || itemStack.isOf(Items.IRON_BLOCK) || itemStack.isOf(Items.IRON_NUGGET) || itemStack.isOf(Items.DIAMOND_AXE) || itemStack.isOf(Items.IRON_HORSE_ARMOR) || itemStack.isOf(Items.END_ROD) || itemStack.isOf(Items.BREWING_STAND) || itemStack.isOf(Items.PINK_TULIP)) {
+        if (itemEntity == null) return;
+
+        String itemIdString = Registries.ITEM.getId(itemEntity.getStack().getItem()).toString();
+        String displayName = itemEntity.getStack().getName().getString();
+
+        if (Config.affectedItemsList.contains(itemIdString) || Config.affectedItemsList.contains(displayName)) {
             matrixStack.scale(Config.itemScale, Config.itemScale, Config.itemScale);
         }
     }
