@@ -23,4 +23,5 @@ public class ItemRenderTweaks implements ModInitializer {
         Config.load();
         LOGGER.info("SimpleItemGlow initialized.");
     }
+    //Credit to ____Iron______ (Wynncraft Big Items) and Spyxar (GlowUp)
 }
