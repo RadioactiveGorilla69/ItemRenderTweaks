@@ -1,7 +1,7 @@
 # ItemRenderTweaks
 Makes select items glow a static or animated RGB color and allows for scaling item size
 
-# YOU WILL NEED CLOTH CONFIG AND MOD MENU FOR THIS
+# You will need Cloth Config and Mod Menu for ItemRenderTweaks to work
 
 ### How to add items
 In the ModMenu screen, click the ItemRenderTweaks icon to access the settings <br>
